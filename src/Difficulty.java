@@ -16,16 +16,16 @@ public class Difficulty extends JFrame {
     private void initializeGui() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        mainPanel.setPreferredSize(new Dimension(450, 450));
+        mainPanel.setPreferredSize(new Dimension(300, 300));
 
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        panel1.setPreferredSize(new Dimension(400, 50));
+        panel1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 25));
+        panel1.setPreferredSize(new Dimension(300, 50));
         question_level = new JLabel("Choose a difficulty to start");
         panel1.add(question_level);
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        panel2.setPreferredSize(new Dimension(400, 200));
+        panel2.setPreferredSize(new Dimension(300, 175));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel3.setPreferredSize(new Dimension(200, 50));
@@ -53,7 +53,7 @@ public class Difficulty extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("MineSweeper");
-        setSize(500, 500);
+        setSize(300, 300);
         setVisible(true);
     }
 
