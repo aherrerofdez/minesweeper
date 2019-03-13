@@ -1,5 +1,12 @@
 public class Game {
+
+    Difficulty.Level level;
+    int num_cells;
+    int num_bombs;
+
     public Game(Difficulty.Level level, int num_cells, int num_bombs){
-        System.out.println(level);
+        this.level = level;
+        this.num_cells = num_cells;
+        this.num_bombs = num_bombs;
     }
 }
