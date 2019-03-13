@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Board extends JFrame {
 
@@ -29,7 +31,7 @@ public class Board extends JFrame {
                     for (int j = 0; j < 9; j++){
                         Point point = new Point(i,j);
                         cell = new Cell(point);
-                        cell.setPreferredSize(new Dimension(25, 25));
+                        cell.setPreferredSize(new Dimension(50, 50));
                         new_row.add(cell);
                         new_row.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
                     }
