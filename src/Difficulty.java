@@ -40,7 +40,9 @@ public class Difficulty extends JFrame {
         easy_level.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 level = Level.Easy;
-                Game game = new Game(level);
+                int num_cells = 81;
+                int num_bombs = 9;
+                Game game = new Game(level, num_cells, num_bombs);
             }
         });
         panel3.add(easy_level);
@@ -51,7 +53,9 @@ public class Difficulty extends JFrame {
         medium_level.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 level = Level.Medium;
-                Game game = new Game(level);
+                int num_cells = 256;
+                int num_bombs = 36;
+                Game game = new Game(level, num_cells, num_bombs);
             }
         });
         panel4.add(medium_level);
@@ -63,7 +67,9 @@ public class Difficulty extends JFrame {
         difficult_level.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 level = Level.Difficult;
-                Game game = new Game(level);
+                int num_cells = 625;
+                int num_bombs = 90;
+                Game game = new Game(level, num_cells, num_bombs);
             }
         });
 
