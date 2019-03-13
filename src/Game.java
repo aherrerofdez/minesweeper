@@ -8,5 +8,6 @@ public class Game {
         this.level = level;
         this.num_cells = num_cells;
         this.num_bombs = num_bombs;
+        new Board(level);
     }
 }
