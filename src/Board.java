@@ -27,7 +27,8 @@ public class Board extends JFrame {
                 for (int i = 0; i < 9; i++) {
                     new_row = new JPanel();
                     for (int j = 0; j < 9; j++){
-                        cell = new JButton();
+                        Point point = new Point(i,j);
+                        cell = new Cell(point);
                         cell.setPreferredSize(new Dimension(25, 25));
                         new_row.add(cell);
                         new_row.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
@@ -42,7 +43,8 @@ public class Board extends JFrame {
                 for (int i = 0; i < 12; i++) {
                     new_row = new JPanel();
                     for (int j = 0; j < 12; j++){
-                        cell = new JButton();
+                        Point point = new Point(i,j);
+                        cell = new Cell(point);
                         cell.setPreferredSize(new Dimension(25, 25));
                         new_row.add(cell);
                         new_row.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
@@ -57,7 +59,8 @@ public class Board extends JFrame {
                 for (int i = 0; i < 16; i++) {
                     new_row = new JPanel();
                     for (int j = 0; j < 16; j++){
-                        cell = new JButton();
+                        Point point = new Point(i,j);
+                        cell = new Cell(point);
                         cell.setPreferredSize(new Dimension(25, 25));
                         new_row.add(cell);
                         new_row.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
