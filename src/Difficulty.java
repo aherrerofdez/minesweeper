@@ -1,7 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class Difficulty extends JFrame {
+
+    private enum Level {
+        Easy, Medium, Difficult;
+    }
+
+    Level level;
 
     private JPanel mainPanel;
     private JLabel question_level;
@@ -29,18 +36,33 @@ public class Difficulty extends JFrame {
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel3.setPreferredSize(new Dimension(200, 50));
-        difficult_level = new JButton("Difficult");
-        panel3.add(difficult_level);
+        easy_level = new JButton("Easy");
+        easy_level.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                level = Level.Easy;
+            }
+        });
+        panel3.add(easy_level);
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel4.setPreferredSize(new Dimension(200, 50));
         medium_level = new JButton("Medium");
+        medium_level.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                level = Level.Medium;
+            }
+        });
         panel4.add(medium_level);
         final JPanel panel5 = new JPanel();
         panel5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel5.setPreferredSize(new Dimension(200, 50));
-        easy_level = new JButton("Easy");
-        panel5.add(easy_level);
+        difficult_level = new JButton("Difficult");
+        panel5.add(difficult_level);
+        difficult_level.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                level = Level.Difficult;
+            }
+        });
 
         panel2.add(panel3);
         panel2.add(panel4);
