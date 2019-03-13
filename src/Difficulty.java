@@ -4,11 +4,11 @@ import java.awt.event.*;
 
 public class Difficulty extends JFrame {
 
-    private enum Level {
+    public enum Level {
         Easy, Medium, Difficult;
     }
 
-    Level level;
+    public Level level;
 
     private JPanel mainPanel;
     private JLabel question_level;
@@ -40,6 +40,7 @@ public class Difficulty extends JFrame {
         easy_level.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 level = Level.Easy;
+                Game game = new Game(level);
             }
         });
         panel3.add(easy_level);
@@ -50,6 +51,7 @@ public class Difficulty extends JFrame {
         medium_level.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 level = Level.Medium;
+                Game game = new Game(level);
             }
         });
         panel4.add(medium_level);
@@ -61,6 +63,7 @@ public class Difficulty extends JFrame {
         difficult_level.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 level = Level.Difficult;
+                Game game = new Game(level);
             }
         });
 
