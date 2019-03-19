@@ -2,11 +2,11 @@ import java.awt.*;
 
 public class BombCell extends Cell {
 
-    String cell_label;
+    public String cell_label;
 
     public BombCell(Point point) {
         super(point);
-        this.cell_label = "*";
+        cell_label = "*";
     }
 
 }
