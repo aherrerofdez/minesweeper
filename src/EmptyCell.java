@@ -2,11 +2,11 @@ import java.awt.*;
 
 public class EmptyCell extends Cell {
 
-    public String cell_label;
+    String empty_label;
 
     public EmptyCell(Point point) {
         super(point);
-        cell_label = " ";
+        empty_label = " ";
     }
 
 }
