@@ -1,6 +1,6 @@
 # minesweeper
 
-##Development of Minesweeper Game in 4 iterations
+## Development of Minesweeper Game in 4 iterations
 
 >Developed by: _**Ana Herrero** and **Alba Díaz**_  
 >Programming Language: **Java**  
