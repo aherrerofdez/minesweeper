@@ -2,12 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Board extends JFrame implements ActionListener, ClickObserver {
 
     private JPanel mainPanel;
     private JButton cell;
+    private HashMap<Point, Cell> cellHashMap = new HashMap<>();
 
     public Board(Difficulty.Level level, int num_cells, int num_bombs) {
         initializeGui(level, num_cells, num_bombs);
@@ -101,6 +103,6 @@ public class Board extends JFrame implements ActionListener, ClickObserver {
 
     @Override
     public void cellClicked(Cell cell) {
-        
+
     }
 }
