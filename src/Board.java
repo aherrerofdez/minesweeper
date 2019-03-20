@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class Board extends JFrame implements ActionListener{
+public class Board extends JFrame implements ActionListener, ClickObserver {
 
     private JPanel mainPanel;
     private JButton cell;
@@ -96,6 +96,11 @@ public class Board extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void cellClicked(Cell cell) {
         
     }
 }
