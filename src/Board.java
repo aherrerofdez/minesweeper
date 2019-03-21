@@ -5,11 +5,12 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Board extends JFrame implements ActionListener, ClickObserver {
+public class Board extends JFrame implements ClickObserver {
 
     private JPanel mainPanel;
-    private JButton cell;
+    private Cell cell;
     private HashMap<Point, Cell> cellHashMap = new HashMap<>();
+    private Game game;
 
     public Board(Difficulty.Level level, int num_cells, int num_bombs) {
         initializeGui(level, num_cells, num_bombs);
@@ -28,9 +29,10 @@ public class Board extends JFrame implements ActionListener, ClickObserver {
         switch(level) {
             case Easy:
                 board_dimension = (int) Math.sqrt(num_cells);
-                frame_dimension = 350;
+                frame_dimension = 500;
                 createBoard(board_dimension, frame_dimension);
                 placeBombs(num_bombs, board_dimension);
+                addAction();
                 break;
 
             case Medium:
@@ -38,6 +40,7 @@ public class Board extends JFrame implements ActionListener, ClickObserver {
                 frame_dimension = 450;
                 createBoard(board_dimension, frame_dimension);
                 placeBombs(num_bombs, board_dimension);
+                addAction();
                 break;
 
             case Difficult:
@@ -45,6 +48,7 @@ public class Board extends JFrame implements ActionListener, ClickObserver {
                 frame_dimension = 550;
                 createBoard(board_dimension, frame_dimension);
                 placeBombs(num_bombs, board_dimension);
+                addAction();
                 break;
         }
 
@@ -71,8 +75,8 @@ public class Board extends JFrame implements ActionListener, ClickObserver {
             for (int j = 0; j < board_dimension; j++){
                 Point point = new Point(i,j);
                 cell = new EmptyCell(point);
-                cell.addActionListener(this);
-                cell.setPreferredSize(new Dimension(25, 25));
+                cellHashMap.put(point, cell);
+                cell.setPreferredSize(new Dimension(45, 45));
                 new_row.add(cell);
                 new_row.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
             }
@@ -83,26 +87,48 @@ public class Board extends JFrame implements ActionListener, ClickObserver {
     }
 
     public void placeBombs(int num_bombs, int board_dimension) {
+        boolean isBomb;
         int bombs_counter = 0;
         Random random = new Random();
         while(bombs_counter < num_bombs) {
             int x = random.nextInt(board_dimension);
             int y = random.nextInt(board_dimension);
             Point current_point = new Point(x, y);
-            cell = new BombCell(current_point);
-            bombs_counter ++;
+            isBomb = cellHashMap.get(current_point).getBomb();
+            if (!isBomb){
+                cellHashMap.get(current_point).setBomb(true);
+                cell = new BombCell(current_point);
+                cellHashMap.put(current_point, cell);
+                bombs_counter++;
+            }
             System.out.println("Mine created at: " + current_point);
         }
 
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public Point cellClicked(Cell cell) {
+        return cell.getPoint();
+    }
+
+    public void addAction(){
+        for (Point point : cellHashMap.keySet()) {
+            Cell current_cell = cellHashMap.get(point);
+            String cell_class = current_cell.getClass().getName();
+            System.out.println(cell_class);
+            current_cell.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (current_cell instanceof EmptyCell){
+                        current_cell.setText("_");
+                    }
+                    else {
+                        current_cell.setText("*");
+                    }
+                }
+            });
+        }
 
     }
 
-    @Override
-    public void cellClicked(Cell cell) {
-
-    }
 }

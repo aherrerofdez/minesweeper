@@ -1,5 +1,5 @@
+import java.awt.*;
+
 public interface ClickObserver {
-
-    void cellClicked(Cell cell);
-
+    Point cellClicked(Cell cell);
 }

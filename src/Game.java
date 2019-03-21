@@ -13,8 +13,8 @@ public class Game {
         new Board(level, num_cells, num_bombs);
     }
 
-    public void gameEnded(boolean wonGame) {
-        if (wonGame == false){
+    public void gameEnded(boolean lostGame) {
+        if (lostGame){
             String titleBar = "Game Over";
             String infoMessage = "The game has ended, sorry!";
             JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.INFORMATION_MESSAGE);
