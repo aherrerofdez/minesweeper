@@ -124,6 +124,7 @@ public class Board extends JFrame implements ClickObserver {
                     }
                     else {
                         current_cell.setText("*");
+                        game.gameEnded(true);
                     }
                 }
             });
