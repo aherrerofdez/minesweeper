@@ -32,7 +32,7 @@ public class Board extends JFrame implements ClickObserver {
                 frame_dimension = 500;
                 createBoard(board_dimension, frame_dimension);
                 placeBombs(num_bombs, board_dimension);
-                addAction();
+                addAction(board_dimension);
                 break;
 
             case Medium:
@@ -40,7 +40,7 @@ public class Board extends JFrame implements ClickObserver {
                 frame_dimension = 450;
                 createBoard(board_dimension, frame_dimension);
                 placeBombs(num_bombs, board_dimension);
-                addAction();
+                addAction(board_dimension);
                 break;
 
             case Difficult:
@@ -48,7 +48,7 @@ public class Board extends JFrame implements ClickObserver {
                 frame_dimension = 550;
                 createBoard(board_dimension, frame_dimension);
                 placeBombs(num_bombs, board_dimension);
-                addAction();
+                addAction(board_dimension);
                 break;
         }
 
@@ -111,7 +111,7 @@ public class Board extends JFrame implements ClickObserver {
         return cell.getPoint();
     }
 
-    public void addAction(){
+    public void addAction(int board_dimension){
         for (Point point : cellHashMap.keySet()) {
             Cell current_cell = cellHashMap.get(point);
             String cell_class = current_cell.getClass().getName();
@@ -121,6 +121,7 @@ public class Board extends JFrame implements ClickObserver {
                 public void actionPerformed(ActionEvent e) {
                     if (current_cell instanceof EmptyCell){
                         current_cell.setText("_");
+                        //countMinesAround(board_dimension, x, y);
                     }
                     else {
                         current_cell.setText("*");
@@ -130,6 +131,12 @@ public class Board extends JFrame implements ClickObserver {
             });
         }
 
+    }
+
+    public int countMinesAround(int board_dimension, int x, int y){
+        int minesAroundCounter = 0;
+        //check mines around and increase counter
+        return minesAroundCounter;
     }
 
 }
