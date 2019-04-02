@@ -3,8 +3,9 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Board extends JFrame implements ClickObserver {
+public class Board implements ClickObserver {
 
+    static JFrame frame = new JFrame();
     JPanel mainPanel;
     Cell cell;
     HashMap<Point, Cell> cellHashMap = new HashMap<>();
@@ -35,11 +36,11 @@ public class Board extends JFrame implements ClickObserver {
                 break;
         }
 
-        add(mainPanel);
+        frame.add(mainPanel);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("MineSweeper");
-        setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("MineSweeper");
+        frame.setVisible(true);
 
     }
 
@@ -65,7 +66,7 @@ public class Board extends JFrame implements ClickObserver {
         JPanel boardPanel = new JPanel();
         boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         boardPanel.setPreferredSize(new Dimension(widthFrame, heightFrame));
-        setSize(widthFrame, heightFrame);
+        frame.setSize(widthFrame, heightFrame);
         JPanel new_row;
         for (int i = 0; i < boardSize; i++) {
             new_row = new JPanel();

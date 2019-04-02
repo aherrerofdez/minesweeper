@@ -37,6 +37,8 @@ public class Cell extends JButton implements ActionListener{
         setText(getString());
         if (getString() == "*") {
             Game.gameEnded(false);
+            Board.frame.dispose();
+            new Difficulty();
         }
         else {
             Board.emptyCellsCounter--;
