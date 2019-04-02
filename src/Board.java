@@ -1,54 +1,36 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Random;
 
 public class Board extends JFrame implements ClickObserver {
 
-    private JPanel mainPanel;
-    private Cell cell;
-    private HashMap<Point, Cell> cellHashMap = new HashMap<>();
-    private Game game;
+    JPanel mainPanel;
+    Cell cell;
+    HashMap<Point, Cell> cellHashMap = new HashMap<>();
 
-    public Board(Difficulty.Level level, int num_cells, int num_bombs) {
-        initializeGui(level, num_cells, num_bombs);
-    }
-
-    public void initializeGui(Difficulty.Level level, int num_cells, int num_bombs) {
+    public Board(Difficulty.Level level, int boardSize, int numBombs) {
         mainPanel = new JPanel();
         mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-        JPanel boardPanel = new JPanel();
-        boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-        int board_dimension;
-        int frame_dimension;
+        int widthFrame;
+        int heightFrame;
 
         switch(level) {
             case Easy:
-                board_dimension = (int) Math.sqrt(num_cells);
-                frame_dimension = 500;
-                createBoard(board_dimension, frame_dimension);
-                placeBombs(num_bombs, board_dimension);
-                addAction(board_dimension);
+                widthFrame = 450;
+                heightFrame = 375;
+                createBoard(boardSize, numBombs, widthFrame, heightFrame);
                 break;
-
             case Medium:
-                board_dimension = (int) Math.sqrt(num_cells);
-                frame_dimension = 450;
-                createBoard(board_dimension, frame_dimension);
-                placeBombs(num_bombs, board_dimension);
-                addAction(board_dimension);
+                widthFrame = 600;
+                heightFrame = 475;
+                createBoard(boardSize, numBombs, widthFrame, heightFrame);
                 break;
-
             case Difficult:
-                board_dimension = (int) Math.sqrt(num_cells);
-                frame_dimension = 550;
-                createBoard(board_dimension, frame_dimension);
-                placeBombs(num_bombs, board_dimension);
-                addAction(board_dimension);
+                widthFrame = 800;
+                heightFrame = 625;
+                createBoard(boardSize, numBombs, widthFrame, heightFrame);
                 break;
         }
 
@@ -60,83 +42,62 @@ public class Board extends JFrame implements ClickObserver {
 
     }
 
-    public void createBoard(int board_dimension, int frame_dimension) {
+    private void createBoard(int boardSize, int numBombs, int widthFrame, int heightFrame) {
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                Point point = new Point(i, j);
+                cell = new EmptyCell(point);
+                cellHashMap.put(point, cell);
+            }
+        }
+
+        placeBombs(boardSize, numBombs);
 
         JPanel boardPanel = new JPanel();
         boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
+        boardPanel.setPreferredSize(new Dimension(widthFrame, heightFrame));
+        setSize(widthFrame, heightFrame);
         JPanel new_row;
-
-        mainPanel.setPreferredSize(new Dimension(frame_dimension, frame_dimension));
-        boardPanel.setPreferredSize(new Dimension(frame_dimension, frame_dimension));
-        setSize(frame_dimension, frame_dimension);
-        for (int i = 0; i < board_dimension; i++) {
+        for (int i = 0; i < boardSize; i++) {
             new_row = new JPanel();
-            for (int j = 0; j < board_dimension; j++){
+            for (int j = 0; j < boardSize; j++){
                 Point point = new Point(i,j);
-                cell = new EmptyCell(point);
-                cellHashMap.put(point, cell);
-                cell.setPreferredSize(new Dimension(45, 45));
+                cell = cellHashMap.get(point);
+                cell.setPreferredSize(new Dimension(40, 30));
+                cell.setFont(new Font("Arial", Font.PLAIN, 10));
                 new_row.add(cell);
                 new_row.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
             }
             boardPanel.add(new_row);
         }
         mainPanel.add(boardPanel);
-
     }
 
-    public void placeBombs(int num_bombs, int board_dimension) {
+    private void placeBombs(int boardSize, int numBombs) {
         boolean isBomb;
-        int bombs_counter = 0;
+        int bombsCounter = 0;
         Random random = new Random();
-        while(bombs_counter < num_bombs) {
-            int x = random.nextInt(board_dimension);
-            int y = random.nextInt(board_dimension);
+        while(bombsCounter < numBombs) {
+            int x = random.nextInt(boardSize);
+            int y = random.nextInt(boardSize);
             Point current_point = new Point(x, y);
             isBomb = cellHashMap.get(current_point).getBomb();
             if (!isBomb){
                 cellHashMap.get(current_point).setBomb(true);
                 cell = new BombCell(current_point);
                 cellHashMap.put(current_point, cell);
-                bombs_counter++;
+                bombsCounter++;
             }
-            System.out.println("Mine created at: " + current_point);
         }
-
     }
 
     @Override
-    public Point cellClicked(Cell cell) {
-        return cell.getPoint();
-    }
-
-    public void addAction(int board_dimension){
-        for (Point point : cellHashMap.keySet()) {
-            Cell current_cell = cellHashMap.get(point);
-            String cell_class = current_cell.getClass().getName();
-            System.out.println(cell_class);
-            current_cell.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (current_cell instanceof EmptyCell){
-                        current_cell.setText("_");
-                        //countMinesAround(board_dimension, x, y);
-                    }
-                    else {
-                        current_cell.setText("*");
-                        game.gameEnded(true);
-                    }
-                }
-            });
-        }
+    public void cellClicked() {
 
     }
 
-    public int countMinesAround(int board_dimension, int x, int y){
-        int minesAroundCounter = 0;
-        //check mines around and increase counter
-        return minesAroundCounter;
-    }
+}
 
+interface ClickObserver {
+    void cellClicked();
 }

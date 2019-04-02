@@ -1,7 +1,7 @@
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.*;
 
-public class Cell extends JButton{
+public class Cell extends JButton {
 
     Point point;
     String text;
@@ -11,23 +11,22 @@ public class Cell extends JButton{
         this.point = point;
         text = " ";
         isBomb = false;
-    }
-
-    public void setBomb(boolean isBomb) {
-        this.isBomb = isBomb;
+        addActionListener(e -> setText(getString()));
     }
 
     public void setString(String text) {
         this.text = text;
     }
 
-    public Point getPoint() {
-        return point;
+    public String getString() {
+        return this.text;
+    }
+
+    public void setBomb(boolean isBomb) {
+        this.isBomb = isBomb;
     }
 
     public boolean getBomb() {
         return isBomb;
     }
-
 }
-
