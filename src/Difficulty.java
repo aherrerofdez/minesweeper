@@ -45,7 +45,7 @@ public class Difficulty extends JFrame {
             else if (i == 1) {
                 buttonLevel.setText("Medium");
                 buttonLevel.addActionListener(e -> {
-                    Difficulty.this.setVisible(false);
+                    setVisible(false);
                     level = Level.Medium;
                     numCells = 144;
                     numBombs = 22;
