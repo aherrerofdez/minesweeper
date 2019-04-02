@@ -8,6 +8,7 @@ public class Board extends JFrame implements ClickObserver {
     JPanel mainPanel;
     Cell cell;
     HashMap<Point, Cell> cellHashMap = new HashMap<>();
+    static int emptyCellsCounter;
 
     public Board(Difficulty.Level level, int boardSize, int numBombs) {
         mainPanel = new JPanel();
@@ -19,17 +20,17 @@ public class Board extends JFrame implements ClickObserver {
         switch(level) {
             case Easy:
                 widthFrame = 450;
-                heightFrame = 375;
+                heightFrame = 430;
                 createBoard(boardSize, numBombs, widthFrame, heightFrame);
                 break;
             case Medium:
                 widthFrame = 600;
-                heightFrame = 475;
+                heightFrame = 540;
                 createBoard(boardSize, numBombs, widthFrame, heightFrame);
                 break;
             case Difficult:
                 widthFrame = 800;
-                heightFrame = 625;
+                heightFrame = 690;
                 createBoard(boardSize, numBombs, widthFrame, heightFrame);
                 break;
         }
@@ -43,6 +44,8 @@ public class Board extends JFrame implements ClickObserver {
     }
 
     private void createBoard(int boardSize, int numBombs, int widthFrame, int heightFrame) {
+        emptyCellsCounter = (boardSize*boardSize) - numBombs;
+
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
                 Point point = new Point(i, j);
@@ -52,6 +55,12 @@ public class Board extends JFrame implements ClickObserver {
         }
 
         placeBombs(boardSize, numBombs);
+
+        JPanel counterPanel = new JPanel();
+        counterPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
+        counterPanel.setPreferredSize(new Dimension(300, 50));
+        JLabel bombsCounterLabel = new JLabel("Number of Bombs: " + numBombs);
+        counterPanel.add(bombsCounterLabel);
 
         JPanel boardPanel = new JPanel();
         boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -70,6 +79,7 @@ public class Board extends JFrame implements ClickObserver {
             }
             boardPanel.add(new_row);
         }
+        mainPanel.add(counterPanel);
         mainPanel.add(boardPanel);
     }
 

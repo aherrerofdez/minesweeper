@@ -38,5 +38,13 @@ public class Cell extends JButton implements ActionListener{
         if (getString() == "*") {
             Game.gameEnded(false);
         }
+        else {
+            Board.emptyCellsCounter--;
+            if (Board.emptyCellsCounter == 0) {
+                Game.gameEnded(true);
+            }
+            System.out.println(Board.emptyCellsCounter);
+        }
+        setEnabled(false);
     }
 }
