@@ -15,7 +15,7 @@ public class Game {
         new Board(level, boardSize, numBombs);
     }
 
-    public void gameEnded(boolean winnedGame) {
+    public static void gameEnded(boolean winnedGame) {
         if (!winnedGame){
             String titleBar = "Game Over:";
             String infoMessage = "The game has ended, sorry!";

@@ -95,7 +95,6 @@ public class Board extends JFrame implements ClickObserver {
     public void cellClicked() {
 
     }
-
 }
 
 interface ClickObserver {

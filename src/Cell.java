@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Cell extends JButton {
+public class Cell extends JButton implements ActionListener{
 
     Point point;
     String text;
@@ -11,7 +13,7 @@ public class Cell extends JButton {
         this.point = point;
         text = " ";
         isBomb = false;
-        addActionListener(e -> setText(getString()));
+        addActionListener(this);
     }
 
     public void setString(String text) {
@@ -28,5 +30,13 @@ public class Cell extends JButton {
 
     public boolean getBomb() {
         return isBomb;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        setText(getString());
+        if (getString() == "*") {
+            Game.gameEnded(false);
+        }
     }
 }
