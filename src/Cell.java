@@ -66,7 +66,6 @@ public class Cell extends JButton implements ActionListener{
                         }
                     }
                 }
-                else
                 setText(Integer.toString(bombsSurroundingCounter));
 
             }
