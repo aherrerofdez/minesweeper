@@ -8,6 +8,7 @@ public class Cell extends JButton implements ActionListener{
     Point point;
     String text;
     boolean isBomb;
+    Board board;
 
     public Cell(Point point){
         this.point = point;
