@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 import java.util.Random;
 
 public class Board implements ClickObserver {
@@ -8,7 +7,6 @@ public class Board implements ClickObserver {
     static JFrame frame = new JFrame();
     JPanel mainPanel;
     Cell cell;
-    HashMap<Point, Cell> cellHashMap = new HashMap<>();
     static int emptyCellsCounter;
 
     public Board(Difficulty.Level level, int boardSize, int numBombs) {
@@ -51,7 +49,7 @@ public class Board implements ClickObserver {
             for (int j = 0; j < boardSize; j++) {
                 Point point = new Point(i, j);
                 cell = new EmptyCell(point);
-                cellHashMap.put(point, cell);
+                Cell.cellHashMap.put(point, cell);
             }
         }
 
@@ -72,7 +70,7 @@ public class Board implements ClickObserver {
             new_row = new JPanel();
             for (int j = 0; j < boardSize; j++){
                 Point point = new Point(i,j);
-                cell = cellHashMap.get(point);
+                cell = Cell.cellHashMap.get(point);
                 cell.setPreferredSize(new Dimension(40, 30));
                 cell.setFont(new Font("Arial", Font.PLAIN, 10));
                 new_row.add(cell);
@@ -92,11 +90,11 @@ public class Board implements ClickObserver {
             int x = random.nextInt(boardSize);
             int y = random.nextInt(boardSize);
             Point current_point = new Point(x, y);
-            isBomb = cellHashMap.get(current_point).getBomb();
+            isBomb = Cell.cellHashMap.get(current_point).getBomb();
             if (!isBomb){
-                cellHashMap.get(current_point).setBomb(true);
+                Cell.cellHashMap.get(current_point).setBomb(true);
                 cell = new BombCell(current_point);
-                cellHashMap.put(current_point, cell);
+                Cell.cellHashMap.put(current_point, cell);
                 bombsCounter++;
             }
         }

@@ -5,7 +5,7 @@ public class Game {
     Difficulty.Level level;
     int numCells;
     int numBombs;
-    int boardSize;
+    public static int boardSize;
 
     public Game(Difficulty.Level level, int numCells, int numBombs) {
         this.level = level;
