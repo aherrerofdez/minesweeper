@@ -6,12 +6,10 @@ import java.util.HashMap;
 
 public class Cell extends JButton implements ActionListener{
 
-    Point point;
-    String text;
-    boolean isBomb;
-    Board board;
+    private Point point;
+    private String text;
+    private boolean isBomb;
     static HashMap<Point, Cell> cellHashMap = new HashMap<>();
-    int bombsSurroundingCounter = 0;
 
     public Cell(Point point){
         this.point = point;
@@ -20,23 +18,23 @@ public class Cell extends JButton implements ActionListener{
         addActionListener(this);
     }
 
-    public Point getPoint(){
+    private Point getPoint(){
         return point;
     }
 
-    public void setString(String text) {
+    void setString(String text) {
         this.text = text;
     }
 
-    public String getString() {
+    private String getString() {
         return text;
     }
 
-    public void setBomb(boolean isBomb) {
+    void setBomb(boolean isBomb) {
         this.isBomb = isBomb;
     }
 
-    public boolean getBomb() {
+    boolean getBomb() {
         return isBomb;
     }
 
@@ -54,7 +52,7 @@ public class Cell extends JButton implements ActionListener{
                 Game.gameEnded(true);
             }
             else {
-                bombsSurroundingCounter = 0;
+                int bombsSurroundingCounter = 0;
                 int x = getPoint().x;
                 int y = getPoint().y;
                 //Top Left Corner
@@ -244,7 +242,12 @@ public class Cell extends JButton implements ActionListener{
                         bombsSurroundingCounter++;
                     }
                 }
-                setText(Integer.toString(bombsSurroundingCounter));
+                if(bombsSurroundingCounter == 0){
+                    setText(getString());
+                }
+                else {
+                    setText(Integer.toString(bombsSurroundingCounter));
+                }
             }
         }
         setEnabled(false);
