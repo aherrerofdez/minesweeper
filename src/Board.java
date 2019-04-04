@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-public class Board implements ClickObserver {
+public class Board {
 
     static JFrame frame = new JFrame();
     JPanel mainPanel;
@@ -99,13 +99,4 @@ public class Board implements ClickObserver {
             }
         }
     }
-
-    @Override
-    public void cellClicked() {
-
-    }
-}
-
-interface ClickObserver {
-    void cellClicked();
 }
