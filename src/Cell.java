@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class Cell extends JButton implements ActionListener{
 
@@ -55,17 +54,17 @@ public class Cell extends JButton implements ActionListener{
                 Game.gameEnded(true);
             }
             else {
-                ArrayList<Point> points = new ArrayList<Point>();
-
-                int x = getPoint().x;
-                int y = getPoint().y;
-                points = checkSurroundingCells(points, x, y);
+                ArrayList<Point> points = new ArrayList<>();
+                Point currentPoint = getPoint();
+                points = checkSurroundingCells(points, currentPoint);
                 countSurroundingBombs(points);
             }
             setEnabled(false);
         }
     }
-    private ArrayList<Point> checkSurroundingCells(ArrayList<Point> points, int x, int y){
+    private ArrayList<Point> checkSurroundingCells(ArrayList<Point> points, Point currentPoint){
+        int x = (int) currentPoint.getX();
+        int y = (int) currentPoint.getY();
         //Top Left Corner
         if((x == 0) && (y == 0)) {
             for (int i = x; i <= (x+1); i++){
@@ -152,9 +151,8 @@ public class Cell extends JButton implements ActionListener{
 
     private void countSurroundingBombs(ArrayList<Point> points) {
         int bombsSurroundingCounter = 0;
-        Iterator i = points.iterator();
-        while (i.hasNext()) {
-            if (cellHashMap.get(i.next()).isBomb) {
+        for (Point p : points) {
+            if (cellHashMap.get(p).isBomb) {
                 bombsSurroundingCounter++;
             }
         }
