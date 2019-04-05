@@ -18,18 +18,18 @@ public class Board {
 
         switch(level) {
             case Easy:
-                widthFrame = 450;
-                heightFrame = 430;
+                widthFrame = 420;
+                heightFrame = 370;
                 createBoard(boardSize, numBombs, widthFrame, heightFrame);
                 break;
             case Medium:
-                widthFrame = 600;
-                heightFrame = 540;
+                widthFrame = 550;
+                heightFrame = 480;
                 createBoard(boardSize, numBombs, widthFrame, heightFrame);
                 break;
             case Difficult:
-                widthFrame = 800;
-                heightFrame = 690;
+                widthFrame = 725;
+                heightFrame = 650;
                 createBoard(boardSize, numBombs, widthFrame, heightFrame);
                 break;
         }
@@ -56,27 +56,21 @@ public class Board {
         placeBombs(boardSize, numBombs);
 
         JPanel counterPanel = new JPanel();
-        counterPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
-        counterPanel.setPreferredSize(new Dimension(300, 50));
+        counterPanel.setPreferredSize(new Dimension(widthFrame, 25));
         JLabel bombsCounterLabel = new JLabel("Number of Bombs: " + numBombs);
         counterPanel.add(bombsCounterLabel);
 
         JPanel boardPanel = new JPanel();
-        boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        boardPanel.setPreferredSize(new Dimension(widthFrame, heightFrame));
+        boardPanel.setLayout(new GridLayout(boardSize, boardSize));
+        boardPanel.setPreferredSize(new Dimension(widthFrame-30, heightFrame-80));
         frame.setSize(widthFrame, heightFrame);
-        JPanel new_row;
         for (int i = 0; i < boardSize; i++) {
-            new_row = new JPanel();
             for (int j = 0; j < boardSize; j++){
                 Point point = new Point(i,j);
                 cell = Cell.cellHashMap.get(point);
-                cell.setPreferredSize(new Dimension(40, 30));
-                cell.setFont(new Font("Arial", Font.PLAIN, 10));
-                new_row.add(cell);
-                new_row.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+                cell.setFont(new Font("Arial", Font.PLAIN, 16));
+                boardPanel.add(cell);
             }
-            boardPanel.add(new_row);
         }
         mainPanel.add(counterPanel);
         mainPanel.add(boardPanel);
