@@ -48,7 +48,6 @@ public class Cell extends JButton implements ActionListener{
         if (isBomb) {
             setText(getString());
             Game.gameEnded(false);
-            Board.frame.dispose();
         }
         else {
             Board.emptyCellsCounter--;

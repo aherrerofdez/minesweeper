@@ -20,6 +20,7 @@ public class Game {
             String infoMessage = "You won this game, congratulations!";
             JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.INFORMATION_MESSAGE);
         }
+        Board.frame.dispose();
     }
 
 }
