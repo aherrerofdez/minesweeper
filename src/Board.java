@@ -5,8 +5,8 @@ import java.util.Random;
 public class Board {
 
     static JFrame frame = new JFrame();
-    JPanel mainPanel;
-    Cell cell;
+    private JPanel mainPanel;
+    private Cell cell;
     static int emptyCellsCounter;
 
     public Board(Difficulty.Level level, int boardSize, int numBombs) {

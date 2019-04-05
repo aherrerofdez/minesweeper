@@ -2,20 +2,14 @@ import javax.swing.*;
 
 public class Game {
 
-    Difficulty.Level level;
-    int numCells;
-    int numBombs;
-    public static int boardSize;
+    static int boardSize;
 
     public Game(Difficulty.Level level, int numCells, int numBombs) {
-        this.level = level;
-        this.numCells = numCells;
-        this.numBombs = numBombs;
         boardSize = (int) Math.sqrt(numCells);
         new Board(level, boardSize, numBombs);
     }
 
-    public static void gameEnded(boolean winnedGame) {
+    static void gameEnded(boolean winnedGame) {
         if (!winnedGame){
             String titleBar = "Game Over:";
             String infoMessage = "The game has ended, sorry!";
