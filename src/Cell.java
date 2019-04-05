@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,6 +19,7 @@ public class Cell extends JButton implements ActionListener{
         text = " ";
         isBomb = false;
         addActionListener(this);
+        addMouseListener(mouseListener);
     }
 
     private Point getPoint(){
@@ -163,4 +166,21 @@ public class Cell extends JButton implements ActionListener{
             setText(Integer.toString(bombsSurroundingCounter));
         }
     }
+
+    MouseListener mouseListener= new MouseListener() {
+       @Override
+        public void mouseClicked(MouseEvent e) {
+            if(e.getButton() == MouseEvent.BUTTON3){
+                setText("F");
+            }
+        }
+        @Override
+        public void mousePressed(MouseEvent e) {}
+        @Override
+        public void mouseReleased(MouseEvent e) {}
+        @Override
+        public void mouseEntered(MouseEvent e) {}
+        @Override
+        public void mouseExited(MouseEvent e) {}
+    };
 }
