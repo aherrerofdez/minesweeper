@@ -2,7 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Cell extends JButton implements ActionListener{
 
@@ -53,26 +55,23 @@ public class Cell extends JButton implements ActionListener{
                 Game.gameEnded(true);
             }
             else {
-                int bombsSurroundingCounter = 0;
+                ArrayList<Point> points = new ArrayList<Point>();
+
                 int x = getPoint().x;
                 int y = getPoint().y;
-                bombsSurroundingCounter = countSurroundingBombs(bombsSurroundingCounter, x, y);
-                if(bombsSurroundingCounter == 0){
-                    setText(getString());
-                }
-                else {
-                    setText(Integer.toString(bombsSurroundingCounter));
-                }
+                points = checkSurroundingCells(points, x, y);
+                countSurroundingBombs(points);
             }
             setEnabled(false);
         }
     }
-    private int countSurroundingBombs(int bombsSurroundingCounter, int x, int y){
+    private ArrayList<Point> checkSurroundingCells(ArrayList<Point> points, int x, int y){
         //Top Left Corner
         if((x == 0) && (y == 0)) {
             for (int i = x; i <= (x+1); i++){
                 for (int j = y; j <= (y+1); j++){
-                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                    Point p = new Point(i, j);
+                    points.add(p);
                 }
             }
         }
@@ -80,7 +79,8 @@ public class Cell extends JButton implements ActionListener{
         if((x == 0) && (y == (Game.boardSize -1))) {
             for (int i = x; i <= (x+1); i++){
                 for (int j = (y-1); j <= y; j++){
-                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                    Point p = new Point(i, j);
+                    points.add(p);
                 }
             }
         }
@@ -88,7 +88,8 @@ public class Cell extends JButton implements ActionListener{
         if((x == (Game.boardSize -1)) && (y == 0)) {
             for (int i = (x-1); i <= x; i++){
                 for (int j = y; j <= (y+1); j++){
-                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                    Point p = new Point(i, j);
+                    points.add(p);
                 }
             }
         }
@@ -96,7 +97,8 @@ public class Cell extends JButton implements ActionListener{
         if((x == (Game.boardSize -1)) && (y == (Game.boardSize -1))) {
             for (int i = (x-1); i <= x; i++){
                 for (int j = (y-1); j <= y; j++){
-                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                    Point p = new Point(i, j);
+                    points.add(p);
                 }
             }
         }
@@ -104,7 +106,8 @@ public class Cell extends JButton implements ActionListener{
         if((x == 0) && (y != 0) && (y < (Game.boardSize - 1))) {
             for (int i = x; i <= (x+1); i++){
                 for (int j = (y-1); j <= (y+1); j++){
-                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                    Point p = new Point(i, j);
+                    points.add(p);
                 }
             }
         }
@@ -112,7 +115,8 @@ public class Cell extends JButton implements ActionListener{
         if((x == (Game.boardSize - 1)) && (y != 0) && (y < (Game.boardSize - 1))) {
             for (int i = (x-1); i <= x; i++){
                 for (int j = (y-1); j <= (y+1); j++){
-                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                    Point p = new Point(i, j);
+                    points.add(p);
                 }
             }
         }
@@ -120,7 +124,8 @@ public class Cell extends JButton implements ActionListener{
         if((y == 0) && (x != 0) && (x < (Game.boardSize - 1))) {
             for (int i = (x-1); i <= (x+1); i++){
                 for (int j = y; j <= (y+1); j++){
-                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                    Point p = new Point(i, j);
+                    points.add(p);
                 }
             }
         }
@@ -128,7 +133,8 @@ public class Cell extends JButton implements ActionListener{
         if((y == (Game.boardSize - 1)) && (x != 0) && (x < (Game.boardSize - 1))) {
             for (int i = (x-1); i <= (x+1); i++){
                 for (int j = (y-1); j <= y; j++){
-                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                    Point p = new Point(i, j);
+                    points.add(p);
                 }
             }
         }
@@ -136,18 +142,27 @@ public class Cell extends JButton implements ActionListener{
         if ((x != 0) && (x != (Game.boardSize - 1)) && (y != 0) && (y != (Game.boardSize - 1))) {
             for (int i = (x-1); i <= (x+1); i++){
                 for (int j = (y-1); j <= (y+1); j++){
-                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                    Point p = new Point(i, j);
+                    points.add(p);
                 }
             }
         }
-        return bombsSurroundingCounter;
+        return points;
     }
 
-    private int addBombsToCounter(int bombsSurroundingCounter, int i, int j) {
-        Point p = new Point(i, j);
-        if (cellHashMap.get(p).isBomb) {
-            bombsSurroundingCounter++;
+    private void countSurroundingBombs(ArrayList<Point> points) {
+        int bombsSurroundingCounter = 0;
+        Iterator i = points.iterator();
+        while (i.hasNext()) {
+            if (cellHashMap.get(i.next()).isBomb) {
+                bombsSurroundingCounter++;
+            }
         }
-        return bombsSurroundingCounter;
+        if(bombsSurroundingCounter == 0){
+            setText(getString());
+        }
+        else {
+            setText(Integer.toString(bombsSurroundingCounter));
+        }
     }
 }
