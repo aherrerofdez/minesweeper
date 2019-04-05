@@ -70,190 +70,83 @@ public class Cell extends JButton implements ActionListener{
     private int countSurroundingBombs(int bombsSurroundingCounter, int x, int y){
         //Top Left Corner
         if((x == 0) && (y == 0)) {
-            Point p1 = new Point(x, (y+1));
-            Point p2 = new Point((x+1), (y+1));
-            Point p3 = new Point((x+1), y);
-            if (cellHashMap.get(p1).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p2).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p3).isBomb) {
-                bombsSurroundingCounter++;
+            for (int i = x; i <= (x+1); i++){
+                for (int j = y; j <= (y+1); j++){
+                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                }
             }
         }
         //Top Right Corner
         if((x == 0) && (y == (Game.boardSize -1))) {
-            Point p1 = new Point((x+1), y);
-            Point p2 = new Point((x+1), (y-1));
-            Point p3 = new Point(x, (y-1));
-            if (cellHashMap.get(p1).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p2).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p3).isBomb) {
-                bombsSurroundingCounter++;
+            for (int i = x; i <= (x+1); i++){
+                for (int j = (y-1); j <= y; j++){
+                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                }
             }
         }
         //Bottom Left Corner
         if((x == (Game.boardSize -1)) && (y == 0)) {
-            Point p1 = new Point((x-1), y);
-            Point p2 = new Point((x-1), (y+1));
-            Point p3 = new Point(x, (y+1));
-            if (cellHashMap.get(p1).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p2).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p3).isBomb) {
-                bombsSurroundingCounter++;
+            for (int i = (x-1); i <= x; i++){
+                for (int j = y; j <= (y+1); j++){
+                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                }
             }
         }
         //Bottom Right Corner
         if((x == (Game.boardSize -1)) && (y == (Game.boardSize -1))) {
-            Point p1 = new Point((x-1), y);
-            Point p2 = new Point((x-1), (y-1));
-            Point p3 = new Point(x, (y-1));
-            if (cellHashMap.get(p1).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p2).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p3).isBomb) {
-                bombsSurroundingCounter++;
+            for (int i = (x-1); i <= x; i++){
+                for (int j = (y-1); j <= y; j++){
+                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                }
             }
         }
         //First row
         if((x == 0) && (y != 0) && (y < (Game.boardSize - 1))) {
-            Point p1 = new Point(x, (y+1));
-            Point p2 = new Point((x+1), (y+1));
-            Point p3 = new Point((x+1), y);
-            Point p4 = new Point((x+1), (y-1));
-            Point p5 = new Point(x, (y-1));
-            if (cellHashMap.get(p1).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p2).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p3).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p4).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p5).isBomb) {
-                bombsSurroundingCounter++;
+            for (int i = x; i <= (x+1); i++){
+                for (int j = (y-1); j <= (y+1); j++){
+                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                }
             }
         }
         //Last row
         if((x == (Game.boardSize - 1)) && (y != 0) && (y < (Game.boardSize - 1))) {
-            Point p1 = new Point(x, (y-1));
-            Point p2 = new Point((x-1), (y-1));
-            Point p3 = new Point((x-1), y);
-            Point p4 = new Point((x-1), (y+1));
-            Point p5 = new Point(x, (y+1));
-            if (cellHashMap.get(p1).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p2).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p3).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p4).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p5).isBomb) {
-                bombsSurroundingCounter++;
+            for (int i = (x-1); i <= x; i++){
+                for (int j = (y-1); j <= (y+1); j++){
+                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                }
             }
         }
         //First column
         if((y == 0) && (x != 0) && (x < (Game.boardSize - 1))) {
-            Point p1 = new Point((x-1), y);
-            Point p2 = new Point((x-1), (y+1));
-            Point p3 = new Point(x, (y+1));
-            Point p4 = new Point((x+1), (y+1));
-            Point p5 = new Point((x+1), y);
-            if (cellHashMap.get(p1).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p2).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p3).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p4).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p5).isBomb) {
-                bombsSurroundingCounter++;
+            for (int i = (x-1); i <= (x+1); i++){
+                for (int j = y; j <= (y+1); j++){
+                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                }
             }
         }
         //Last column
         if((y == (Game.boardSize - 1)) && (x != 0) && (x < (Game.boardSize - 1))) {
-            Point p1 = new Point((x+1), y);
-            Point p2 = new Point((x+1), (y-1));
-            Point p3 = new Point(x, (y-1));
-            Point p4 = new Point((x-1), (y-1));
-            Point p5 = new Point((x-1), y);
-            if (cellHashMap.get(p1).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p2).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p3).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p4).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p5).isBomb) {
-                bombsSurroundingCounter++;
+            for (int i = (x-1); i <= (x+1); i++){
+                for (int j = (y-1); j <= y; j++){
+                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                }
             }
         }
         //Inside Cells
         if ((x != 0) && (x != (Game.boardSize - 1)) && (y != 0) && (y != (Game.boardSize - 1))) {
-            Point p1 = new Point((x - 1), (y - 1));
-            Point p2 = new Point((x - 1), y);
-            Point p3 = new Point((x - 1), (y + 1));
-            Point p4 = new Point(x, (y + 1));
-            Point p5 = new Point((x + 1), (y + 1));
-            Point p6 = new Point((x + 1), y);
-            Point p7 = new Point((x + 1), (y - 1));
-            Point p8 = new Point(x, (y - 1));
-            if (cellHashMap.get(p1).isBomb) {
-                bombsSurroundingCounter++;
+            for (int i = (x-1); i <= (x+1); i++){
+                for (int j = (y-1); j <= (y+1); j++){
+                    bombsSurroundingCounter = addBombsToCounter(bombsSurroundingCounter, i, j);
+                }
             }
-            if (cellHashMap.get(p2).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p3).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p4).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p5).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p6).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p7).isBomb) {
-                bombsSurroundingCounter++;
-            }
-            if (cellHashMap.get(p8).isBomb) {
-                bombsSurroundingCounter++;
-            }
+        }
+        return bombsSurroundingCounter;
+    }
+
+    private int addBombsToCounter(int bombsSurroundingCounter, int i, int j) {
+        Point p = new Point(i, j);
+        if (cellHashMap.get(p).isBomb) {
+            bombsSurroundingCounter++;
         }
         return bombsSurroundingCounter;
     }
