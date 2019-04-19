@@ -160,6 +160,7 @@ public class Cell extends JButton implements ActionListener{
         }
         if(bombsSurroundingCounter == 0){
             setText(getString());
+            System.out.println(getString());
         }
         else {
             setText(Integer.toString(bombsSurroundingCounter));
@@ -170,7 +171,11 @@ public class Cell extends JButton implements ActionListener{
        @Override
         public void mouseClicked(MouseEvent e) {
             if(e.getButton() == MouseEvent.BUTTON3){
-                setText("F");
+                Difficulty.numBombs--;
+                if (Difficulty.numBombs > -1){
+                    Board.bombsCounterLabel.setText("Number of Bombs: " + Difficulty.numBombs);
+                    setText("F");
+                }
             }
         }
         @Override

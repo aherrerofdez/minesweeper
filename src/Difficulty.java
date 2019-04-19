@@ -9,7 +9,7 @@ public class Difficulty extends JFrame {
 
     private Level level;
     private int numCells;
-    private int numBombs;
+    public static int numBombs;
 
     public Difficulty() {
         JPanel mainPanel = new JPanel();

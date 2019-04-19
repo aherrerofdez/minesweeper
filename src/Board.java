@@ -8,6 +8,7 @@ public class Board {
     private JPanel mainPanel;
     private Cell cell;
     static int emptyCellsCounter;
+    static JLabel bombsCounterLabel;
 
     public Board(Difficulty.Level level, int boardSize, int numBombs) {
         mainPanel = new JPanel();
@@ -39,7 +40,6 @@ public class Board {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("MineSweeper");
         frame.setVisible(true);
-
     }
 
     private void createBoard(int boardSize, int numBombs, int widthFrame, int heightFrame) {
@@ -57,7 +57,7 @@ public class Board {
 
         JPanel counterPanel = new JPanel();
         counterPanel.setPreferredSize(new Dimension(widthFrame, 25));
-        JLabel bombsCounterLabel = new JLabel("Number of Bombs: " + numBombs);
+        bombsCounterLabel = new JLabel("Number of Bombs: " + numBombs);
         counterPanel.add(bombsCounterLabel);
 
         JPanel boardPanel = new JPanel();
