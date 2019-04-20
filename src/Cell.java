@@ -22,7 +22,6 @@ public class Cell extends JButton implements ActionListener{
         isBomb = false;
         addActionListener(this);
         addMouseListener(mouseListener);
-        setForeground(Color.ORANGE);
     }
 
     private Point getPoint(){
@@ -56,7 +55,6 @@ public class Cell extends JButton implements ActionListener{
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            setEnabled(false);
             Game.gameEnded(false);
         }
         else {
@@ -172,6 +170,9 @@ public class Cell extends JButton implements ActionListener{
             setText(getString());
         }
         else {
+            Color [] colors = {Color.CYAN, Color.GREEN, Color.MAGENTA, Color.RED, Color.YELLOW,
+                Color.BLUE, Color.GRAY , Color.BLACK};
+            setBackground(colors[bombsSurroundingCounter-1]);
             setText(Integer.toString(bombsSurroundingCounter));
         }
     }
