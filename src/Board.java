@@ -68,7 +68,7 @@ public class Board {
             for (int j = 0; j < boardSize; j++){
                 Point point = new Point(i,j);
                 cell = Cell.cellHashMap.get(point);
-                cell.setFont(new Font("Arial", Font.PLAIN, 14));
+                cell.setFont(new Font("Arial", Font.BOLD, 16));
                 boardPanel.add(cell);
             }
         }

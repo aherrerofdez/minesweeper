@@ -22,6 +22,7 @@ public class Cell extends JButton implements ActionListener{
         isBomb = false;
         addActionListener(this);
         addMouseListener(mouseListener);
+        setForeground(Color.ORANGE);
     }
 
     private Point getPoint(){
@@ -55,6 +56,7 @@ public class Cell extends JButton implements ActionListener{
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            setEnabled(false);
             Game.gameEnded(false);
         }
         else {
@@ -168,14 +170,13 @@ public class Cell extends JButton implements ActionListener{
         }
         if(bombsSurroundingCounter == 0){
             setText(getString());
-            System.out.println(getString());
         }
         else {
             setText(Integer.toString(bombsSurroundingCounter));
         }
     }
 
-    MouseListener mouseListener= new MouseListener() {
+    private MouseListener mouseListener= new MouseListener() {
        @Override
         public void mouseClicked(MouseEvent e) {
             if(e.getButton() == MouseEvent.BUTTON3){
@@ -189,6 +190,7 @@ public class Cell extends JButton implements ActionListener{
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
+                    setBackground(Color.ORANGE);
                 }
             }
         }
