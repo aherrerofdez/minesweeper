@@ -1,9 +1,11 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -46,7 +48,13 @@ public class Cell extends JButton implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         isBomb = getBomb();
         if (isBomb) {
-            setText(getString());
+            try {
+                Image imgBomb = ImageIO.read(getClass().getResource("resources/bomb.png"));
+                Image bombIcon = imgBomb.getScaledInstance(getWidth(), getHeight(), java.awt.Image.SCALE_SMOOTH );
+                setIcon(new ImageIcon(bombIcon));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             Game.gameEnded(false);
         }
         else {
@@ -174,7 +182,13 @@ public class Cell extends JButton implements ActionListener{
                 Difficulty.numBombs--;
                 if (Difficulty.numBombs > -1){
                     Board.bombsCounterLabel.setText("Number of Bombs: " + Difficulty.numBombs);
-                    setText("F");
+                    try {
+                        Image imgFlag = ImageIO.read(getClass().getResource("resources/flag.png"));
+                        Image flagIcon = imgFlag.getScaledInstance(getWidth(), getHeight(), java.awt.Image.SCALE_SMOOTH );
+                        setIcon(new ImageIcon(flagIcon));
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         }
