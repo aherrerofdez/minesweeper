@@ -72,7 +72,6 @@ public class Board implements ClickObserver, ActionListener {
             for (int j = 0; j < boardSize; j++) {
                 Point point = new Point(i, j);
                 cell = Cell.cellHashMap.get(point);
-                cell.setFont(new Font("Arial", Font.BOLD, 16));
                 cell.addActionListener(this);
                 boardPanel.add(cell);
             }

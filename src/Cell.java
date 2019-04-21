@@ -20,6 +20,7 @@ public class Cell extends JButton implements ActionListener {
         this.point = point;
         text = " ";
         isBomb = false;
+        setFont(new Font("Arial", Font.BOLD, 16));
         addActionListener(this);
         addMouseListener(mouseListener);
     }
