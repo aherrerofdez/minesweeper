@@ -77,5 +77,4 @@ public class Difficulty extends JFrame {
         setSize(300, 300);
         setVisible(true);
     }
-
 }

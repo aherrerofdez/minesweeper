@@ -23,5 +23,4 @@ public class Game {
         }
         Board.frame.dispose();
     }
-
 }

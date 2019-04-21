@@ -32,7 +32,7 @@ public class Cell extends JButton implements ActionListener {
         this.text = text;
     }
 
-    String getString() {
+    private String getString() {
         return text;
     }
 
@@ -55,6 +55,7 @@ public class Cell extends JButton implements ActionListener {
             setEnabled(false);
         }
     }
+
     private ArrayList<Point> checkSurroundingCells(ArrayList<Point> points, Point currentPoint){
         int x = (int) currentPoint.getX();
         int y = (int) currentPoint.getY();
@@ -175,6 +176,7 @@ public class Cell extends JButton implements ActionListener {
                         ex.printStackTrace();
                     }
                     setBackground(Color.ORANGE);
+                    setEnabled(false);
                 }
             }
         }

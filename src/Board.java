@@ -11,7 +11,7 @@ public class Board implements ClickObserver, ActionListener {
     static JFrame frame = new JFrame();
     private JPanel mainPanel;
     private Cell cell;
-    static int emptyCellsCounter;
+    private static int emptyCellsCounter;
     static JLabel bombsCounterLabel;
 
     public Board(Difficulty.Level level, int boardSize, int numBombs) {
@@ -101,9 +101,6 @@ public class Board implements ClickObserver, ActionListener {
 
     @Override
     public void cellClicked(Cell cell) {
-        int x = (int) cell.getPoint().getX() + 1;
-        int y = (int) cell.getPoint().getY() + 1;
-        System.out.println("Cell at (" + x + "," + y + ") has been clicked");
         if (cell instanceof BombCell) {
             try {
                 Image imgBomb = ImageIO.read(getClass().getResource("resources/bomb.png"));
