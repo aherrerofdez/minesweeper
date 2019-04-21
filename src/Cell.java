@@ -21,7 +21,7 @@ public class Cell extends JButton implements ActionListener {
         addMouseListener(mouseListener);
     }
 
-    private Point getPoint(){
+    Point getPoint(){
         return point;
     }
 

@@ -12,6 +12,7 @@ public class Board implements ClickObserver, ActionListener {
     private Cell cell;
     private static int emptyCellsCounter;
     static JLabel bombsCounterLabel;
+    private boolean firstClick = true;
 
     public Board(Difficulty.Level level, int boardSize, int numBombs) {
         mainPanel = new JPanel();
@@ -60,7 +61,7 @@ public class Board implements ClickObserver, ActionListener {
 
         JPanel counterPanel = new JPanel();
         counterPanel.setPreferredSize(new Dimension(widthFrame, 25));
-        bombsCounterLabel = new JLabel("Number of Bombs: " + numBombs);
+        bombsCounterLabel = new JLabel("Number of Bombs: ");
         counterPanel.add(bombsCounterLabel);
 
         JPanel boardPanel = new JPanel();
@@ -120,6 +121,22 @@ public class Board implements ClickObserver, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        cellClicked((Cell) e.getSource());
+        if (firstClick) {
+            if (e.getSource() instanceof BombCell) {
+                Point pt = ((BombCell) e.getSource()).getPoint();
+                Cell.cellHashMap.get(pt).setBomb(false);
+                cell = new EmptyCell(pt);
+                Cell.cellHashMap.put(pt, cell);
+                Difficulty.numBombs--;
+                bombsCounterLabel.setText("Number of Bombs: " + Difficulty.numBombs);
+            }
+            else{
+                bombsCounterLabel.setText("Number of Bombs: " + Difficulty.numBombs);
+            }
+            firstClick = false;
+        }
+        else {
+            cellClicked((Cell) e.getSource());
+        }
     }
 }
