@@ -8,6 +8,8 @@
 
 In this project, the following classes have been created: Main, Difficulty, Game, Board, Cell, EmptyCell, BombCell; and the interface ClickObserver
 
+**_NOTE!_** A resources folder was created inside the src folder of the project to hold the icons for bombs and flags that will be used in the code.
+
 * **Main:**
 In charge of creating a new Difficulty class instance.
 
