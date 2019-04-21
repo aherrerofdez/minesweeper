@@ -1,8 +1,12 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Random;
 
-public class Board {
+public class Board implements ClickObserver, ActionListener {
 
     static JFrame frame = new JFrame();
     private JPanel mainPanel;
@@ -17,7 +21,7 @@ public class Board {
         int widthFrame;
         int heightFrame;
 
-        switch(level) {
+        switch (level) {
             case Easy:
                 widthFrame = 420;
                 heightFrame = 370;
@@ -43,7 +47,7 @@ public class Board {
     }
 
     private void createBoard(int boardSize, int numBombs, int widthFrame, int heightFrame) {
-        emptyCellsCounter = (boardSize*boardSize) - numBombs;
+        emptyCellsCounter = (boardSize * boardSize) - numBombs;
 
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
@@ -62,13 +66,14 @@ public class Board {
 
         JPanel boardPanel = new JPanel();
         boardPanel.setLayout(new GridLayout(boardSize, boardSize));
-        boardPanel.setPreferredSize(new Dimension(widthFrame-30, heightFrame-80));
+        boardPanel.setPreferredSize(new Dimension(widthFrame - 30, heightFrame - 80));
         frame.setSize(widthFrame, heightFrame);
         for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++){
-                Point point = new Point(i,j);
+            for (int j = 0; j < boardSize; j++) {
+                Point point = new Point(i, j);
                 cell = Cell.cellHashMap.get(point);
                 cell.setFont(new Font("Arial", Font.BOLD, 16));
+                cell.addActionListener(this);
                 boardPanel.add(cell);
             }
         }
@@ -80,17 +85,46 @@ public class Board {
         boolean isBomb;
         int bombsCounter = 0;
         Random random = new Random();
-        while(bombsCounter < numBombs) {
+        while (bombsCounter < numBombs) {
             int x = random.nextInt(boardSize);
             int y = random.nextInt(boardSize);
-            Point current_point = new Point(x, y);
-            isBomb = Cell.cellHashMap.get(current_point).getBomb();
-            if (!isBomb){
-                Cell.cellHashMap.get(current_point).setBomb(true);
-                cell = new BombCell(current_point);
-                Cell.cellHashMap.put(current_point, cell);
+            Point currentPoint = new Point(x, y);
+            isBomb = Cell.cellHashMap.get(currentPoint).getBomb();
+            if (!isBomb) {
+                Cell.cellHashMap.get(currentPoint).setBomb(true);
+                cell = new BombCell(currentPoint);
+                Cell.cellHashMap.put(currentPoint, cell);
                 bombsCounter++;
             }
         }
+    }
+
+    @Override
+    public void cellClicked(Cell cell) {
+        int x = (int) cell.getPoint().getX() + 1;
+        int y = (int) cell.getPoint().getY() + 1;
+        System.out.println("Cell at (" + x + "," + y + ") has been clicked");
+        if (cell instanceof BombCell) {
+            try {
+                Image imgBomb = ImageIO.read(getClass().getResource("resources/bomb.png"));
+                Image bombIcon = imgBomb.getScaledInstance(cell.getWidth(), cell.getHeight(), java.awt.Image.SCALE_SMOOTH );
+                cell.setIcon(new ImageIcon(bombIcon));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            Game.gameEnded(false);
+        }
+        else {
+            emptyCellsCounter--;
+            if (emptyCellsCounter == 0) {
+                cell.setEnabled(false);
+                Game.gameEnded(true);
+            }
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        cellClicked((Cell) e.getSource());
     }
 }

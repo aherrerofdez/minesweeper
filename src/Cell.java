@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Cell extends JButton implements ActionListener{
+public class Cell extends JButton implements ActionListener {
 
     private Point point;
     private String text;
@@ -24,7 +24,7 @@ public class Cell extends JButton implements ActionListener{
         addMouseListener(mouseListener);
     }
 
-    private Point getPoint(){
+    Point getPoint(){
         return point;
     }
 
@@ -32,7 +32,7 @@ public class Cell extends JButton implements ActionListener{
         this.text = text;
     }
 
-    private String getString() {
+    String getString() {
         return text;
     }
 
@@ -47,28 +47,11 @@ public class Cell extends JButton implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         isBomb = getBomb();
-        if (isBomb) {
-            try {
-                Image imgBomb = ImageIO.read(getClass().getResource("resources/bomb.png"));
-                Image bombIcon = imgBomb.getScaledInstance(getWidth(), getHeight(), java.awt.Image.SCALE_SMOOTH );
-                setIcon(new ImageIcon(bombIcon));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            Game.gameEnded(false);
-        }
-        else {
-            Board.emptyCellsCounter--;
-            if (Board.emptyCellsCounter == 0) {
-                setEnabled(false);
-                Game.gameEnded(true);
-            }
-            else {
-                ArrayList<Point> points = new ArrayList<>();
-                Point currentPoint = getPoint();
-                points = checkSurroundingCells(points, currentPoint);
-                countSurroundingBombs(points);
-            }
+        if (!isBomb) {
+            ArrayList<Point> points = new ArrayList<>();
+            Point currentPoint = getPoint();
+            points = checkSurroundingCells(points, currentPoint);
+            countSurroundingBombs(points);
             setEnabled(false);
         }
     }
@@ -171,14 +154,14 @@ public class Cell extends JButton implements ActionListener{
         }
         else {
             Color [] colors = {Color.CYAN, Color.GREEN, Color.MAGENTA, Color.RED, Color.YELLOW,
-                Color.BLUE, Color.GRAY , Color.BLACK};
+                    Color.BLUE, Color.GRAY , Color.BLACK};
             setBackground(colors[bombsSurroundingCounter-1]);
             setText(Integer.toString(bombsSurroundingCounter));
         }
     }
 
     private MouseListener mouseListener= new MouseListener() {
-       @Override
+        @Override
         public void mouseClicked(MouseEvent e) {
             if(e.getButton() == MouseEvent.BUTTON3){
                 Difficulty.numBombs--;

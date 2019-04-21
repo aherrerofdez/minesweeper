@@ -3,10 +3,11 @@ import javax.swing.*;
 public class Game {
 
     static int boardSize;
+    static Board board;
 
     public Game(Difficulty.Level level, int numCells, int numBombs) {
         boardSize = (int) Math.sqrt(numCells);
-        new Board(level, boardSize, numBombs);
+        board = new Board(level, boardSize, numBombs);
     }
 
     static void gameEnded(boolean winnedGame) {
