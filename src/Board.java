@@ -120,7 +120,6 @@ public class Board implements ClickObserver, ActionListener {
                     counter++;
                 }
             }
-            System.out.println(counter);
             if (counter == 1) {
                 cell.setEnabled(false);
                 Game.gameEnded(true);
@@ -133,7 +132,6 @@ public class Board implements ClickObserver, ActionListener {
         Point pt = ((Cell)e.getSource()).getPoint();
         if (firstClick) {
             if (e.getSource() instanceof BombCell) {
-                System.out.println("BOMB!");
                 mainPanel.remove(counterPanel);
                 mainPanel.remove(boardPanel);
                 mainPanel.revalidate();
