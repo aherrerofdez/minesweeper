@@ -149,29 +149,17 @@ public class Cell extends JButton implements ActionListener {
         }
         if(bombsSurroundingCounter == 0){
             setText(getString());
-            doClickSurroundings(currentPoint);
+            for (Point p : points) {
+                if (cellHashMap.get(p).isEnabled()) {
+                    cellHashMap.get(p).doClick();
+                }
+            }
         }
         else {
             Color [] colors = {Color.CYAN, Color.GREEN, Color.YELLOW, Color.MAGENTA, Color.RED,
                     Color.BLUE, Color.BLACK , Color.DARK_GRAY};
             setBackground(colors[bombsSurroundingCounter-1]);
             setText(Integer.toString(bombsSurroundingCounter));
-        }
-    }
-
-    private void doClickSurroundings(Point currentPoint) {
-        System.out.println(currentPoint);
-        ArrayList<Point> points = new ArrayList<>();
-        points = checkSurroundingCells(points, currentPoint);
-        for (Point p : points) {
-            if (p.equals(currentPoint)){
-                System.out.println(p);
-            }
-            else {
-                if (cellHashMap.get(p).isEnabled()) {
-                    cellHashMap.get(p).doClick();
-                }
-            }
         }
     }
 
