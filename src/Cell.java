@@ -49,7 +49,7 @@ public class Cell extends JButton implements ActionListener {
             ArrayList<Point> points = new ArrayList<>();
             Point currentPoint = getPoint();
             points = checkSurroundingCells(points, currentPoint);
-            countSurroundingBombs(points ,currentPoint);
+            countSurroundingBombs(points);
         }
     }
 
@@ -140,7 +140,7 @@ public class Cell extends JButton implements ActionListener {
         return points;
     }
 
-    private void countSurroundingBombs(ArrayList<Point> points, Point currentPoint) {
+    private void countSurroundingBombs(ArrayList<Point> points) {
         int bombsSurroundingCounter = 0;
         for (Point p : points) {
             if (cellHashMap.get(p).isBomb) {
