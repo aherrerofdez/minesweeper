@@ -45,11 +45,11 @@ public class Cell extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         isBomb = getBomb();
         if (!isBomb) {
+            setEnabled(false);
             ArrayList<Point> points = new ArrayList<>();
             Point currentPoint = getPoint();
             points = checkSurroundingCells(points, currentPoint);
-            countSurroundingBombs(points);
-            setEnabled(false);
+            countSurroundingBombs(points ,currentPoint);
         }
     }
 
@@ -140,7 +140,7 @@ public class Cell extends JButton implements ActionListener {
         return points;
     }
 
-    private void countSurroundingBombs(ArrayList<Point> points) {
+    private void countSurroundingBombs(ArrayList<Point> points, Point currentPoint) {
         int bombsSurroundingCounter = 0;
         for (Point p : points) {
             if (cellHashMap.get(p).isBomb) {
@@ -149,12 +149,29 @@ public class Cell extends JButton implements ActionListener {
         }
         if(bombsSurroundingCounter == 0){
             setText(getString());
+            doClickSurroundings(currentPoint);
         }
         else {
-            Color [] colors = {Color.CYAN, Color.GREEN, Color.MAGENTA, Color.RED, Color.YELLOW,
-                    Color.BLUE, Color.GRAY , Color.BLACK};
+            Color [] colors = {Color.CYAN, Color.GREEN, Color.YELLOW, Color.MAGENTA, Color.RED,
+                    Color.BLUE, Color.BLACK , Color.DARK_GRAY};
             setBackground(colors[bombsSurroundingCounter-1]);
             setText(Integer.toString(bombsSurroundingCounter));
+        }
+    }
+
+    private void doClickSurroundings(Point currentPoint) {
+        System.out.println(currentPoint);
+        ArrayList<Point> points = new ArrayList<>();
+        points = checkSurroundingCells(points, currentPoint);
+        for (Point p : points) {
+            if (p.equals(currentPoint)){
+                System.out.println(p);
+            }
+            else {
+                if (cellHashMap.get(p).isEnabled()) {
+                    cellHashMap.get(p).doClick();
+                }
+            }
         }
     }
 
