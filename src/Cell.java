@@ -11,6 +11,7 @@ public class Cell extends JButton implements ActionListener {
     private String text;
     private boolean isBomb;
     static HashMap<Point, Cell> cellHashMap = new HashMap<>();
+    private ArrayList<Point> points = new ArrayList<>();
 
     public Cell(Point point){
         this.point = point;
@@ -46,14 +47,13 @@ public class Cell extends JButton implements ActionListener {
         isBomb = getBomb();
         if (!isBomb) {
             setEnabled(false);
-            ArrayList<Point> points = new ArrayList<>();
             Point currentPoint = getPoint();
-            points = checkSurroundingCells(points, currentPoint);
+            points = checkSurroundingCells(currentPoint);
             countSurroundingBombs(points);
         }
     }
 
-    private ArrayList<Point> checkSurroundingCells(ArrayList<Point> points, Point currentPoint){
+    private ArrayList<Point> checkSurroundingCells(Point currentPoint){
         int x = (int) currentPoint.getX();
         int y = (int) currentPoint.getY();
         //Top Left Corner
