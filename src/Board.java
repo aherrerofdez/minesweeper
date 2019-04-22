@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Random;
 
 public class Board implements ClickObserver, ActionListener {
@@ -14,7 +15,6 @@ public class Board implements ClickObserver, ActionListener {
     private JPanel counterPanel;
     private JPanel boardPanel;
     private Cell cell;
-    private static int emptyCellsCounter;
     static JLabel bombsCounterLabel;
     private boolean firstClick = true;
 
@@ -50,7 +50,6 @@ public class Board implements ClickObserver, ActionListener {
     }
 
     private void createBoard(int boardSize, int numBombs, int widthFrame, int heightFrame, Random random) {
-        emptyCellsCounter = (boardSize * boardSize) - numBombs;
 
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
@@ -114,8 +113,15 @@ public class Board implements ClickObserver, ActionListener {
             Game.gameEnded(false);
         }
         else {
-            emptyCellsCounter--;
-            if (emptyCellsCounter == 0) {
+            int counter = 0;
+            for (Map.Entry c : Cell.cellHashMap.entrySet()) {
+                Point pt = (Point) c.getKey();
+                if((Cell.cellHashMap.get(pt) instanceof  EmptyCell) && (Cell.cellHashMap.get(pt).isEnabled())){
+                    counter++;
+                }
+            }
+            System.out.println(counter);
+            if (counter == 1) {
                 cell.setEnabled(false);
                 Game.gameEnded(true);
             }
@@ -127,6 +133,7 @@ public class Board implements ClickObserver, ActionListener {
         Point pt = ((Cell)e.getSource()).getPoint();
         if (firstClick) {
             if (e.getSource() instanceof BombCell) {
+                System.out.println("BOMB!");
                 mainPanel.remove(counterPanel);
                 mainPanel.remove(boardPanel);
                 mainPanel.revalidate();
