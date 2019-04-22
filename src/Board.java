@@ -9,6 +9,10 @@ public class Board implements ClickObserver, ActionListener {
 
     static JFrame frame = new JFrame();
     private JPanel mainPanel;
+    private int widthFrame;
+    private int heightFrame;
+    private JPanel counterPanel;
+    private JPanel boardPanel;
     private Cell cell;
     private static int emptyCellsCounter;
     static JLabel bombsCounterLabel;
@@ -18,24 +22,23 @@ public class Board implements ClickObserver, ActionListener {
         mainPanel = new JPanel();
         mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-        int widthFrame;
-        int heightFrame;
+        Random randomOne = new Random();
 
         switch (level) {
             case Easy:
                 widthFrame = 420;
                 heightFrame = 370;
-                createBoard(boardSize, numBombs, widthFrame, heightFrame);
+                createBoard(boardSize, numBombs, widthFrame, heightFrame, randomOne);
                 break;
             case Medium:
                 widthFrame = 550;
                 heightFrame = 480;
-                createBoard(boardSize, numBombs, widthFrame, heightFrame);
+                createBoard(boardSize, numBombs, widthFrame, heightFrame, randomOne);
                 break;
             case Difficult:
                 widthFrame = 725;
                 heightFrame = 650;
-                createBoard(boardSize, numBombs, widthFrame, heightFrame);
+                createBoard(boardSize, numBombs, widthFrame, heightFrame, randomOne);
                 break;
         }
 
@@ -46,7 +49,7 @@ public class Board implements ClickObserver, ActionListener {
         frame.setVisible(true);
     }
 
-    private void createBoard(int boardSize, int numBombs, int widthFrame, int heightFrame) {
+    private void createBoard(int boardSize, int numBombs, int widthFrame, int heightFrame, Random random) {
         emptyCellsCounter = (boardSize * boardSize) - numBombs;
 
         for (int i = 0; i < boardSize; i++) {
@@ -57,14 +60,14 @@ public class Board implements ClickObserver, ActionListener {
             }
         }
 
-        placeBombs(boardSize, numBombs);
+        placeBombs(boardSize, numBombs, random);
 
-        JPanel counterPanel = new JPanel();
+        counterPanel = new JPanel();
         counterPanel.setPreferredSize(new Dimension(widthFrame, 25));
-        bombsCounterLabel = new JLabel("Number of Bombs: ");
+        bombsCounterLabel = new JLabel("Number of Bombs: " + numBombs);
         counterPanel.add(bombsCounterLabel);
 
-        JPanel boardPanel = new JPanel();
+        boardPanel = new JPanel();
         boardPanel.setLayout(new GridLayout(boardSize, boardSize));
         boardPanel.setPreferredSize(new Dimension(widthFrame - 30, heightFrame - 80));
         frame.setSize(widthFrame, heightFrame);
@@ -80,10 +83,10 @@ public class Board implements ClickObserver, ActionListener {
         mainPanel.add(boardPanel);
     }
 
-    private void placeBombs(int boardSize, int numBombs) {
+    private void placeBombs(int boardSize, int numBombs, Random random) {
         boolean isBomb;
         int bombsCounter = 0;
-        Random random = new Random();
+
         while (bombsCounter < numBombs) {
             int x = random.nextInt(boardSize);
             int y = random.nextInt(boardSize);
@@ -121,17 +124,16 @@ public class Board implements ClickObserver, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Point pt = ((Cell)e.getSource()).getPoint();
         if (firstClick) {
             if (e.getSource() instanceof BombCell) {
-                Point pt = ((BombCell) e.getSource()).getPoint();
-                Cell.cellHashMap.get(pt).setBomb(false);
-                cell = new EmptyCell(pt);
-                Cell.cellHashMap.put(pt, cell);
-                Difficulty.numBombs--;
-                bombsCounterLabel.setText("Number of Bombs: " + Difficulty.numBombs);
-            }
-            else{
-                bombsCounterLabel.setText("Number of Bombs: " + Difficulty.numBombs);
+                mainPanel.remove(counterPanel);
+                mainPanel.remove(boardPanel);
+                mainPanel.revalidate();
+                mainPanel.repaint();
+                Random randomTwo = new Random();
+                createBoard(Game.boardSize, Difficulty.numBombs, widthFrame, heightFrame, randomTwo);
+                Cell.cellHashMap.get(pt).doClick();
             }
             firstClick = false;
         }
